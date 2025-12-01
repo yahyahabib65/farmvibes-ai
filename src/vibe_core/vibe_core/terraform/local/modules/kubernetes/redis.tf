@@ -8,7 +8,13 @@ resource "helm_release" "redis" {
   chart      = "redis"
   namespace  = var.namespace
 
-  set = [
+  set = [ 
+    { name  = "global.security.allowInsecureImages" 
+      value = "true" 
+    }, 
+    { name  = "image.repository"
+      value = "bitnamilegacy/redis"
+    },
     {
       name  = "commonConfiguration"
       value = "appendonly no"
@@ -19,12 +25,12 @@ resource "helm_release" "redis" {
     },
     {
       name  = "image.tag"
-      value = var.redis_image_tag
+      value = "8.2.1-debian-12-r0"
     },
     {
       name  = "replica.replicaCount"
       value = "0"
-    }
+    }  
   ]
 }
 
