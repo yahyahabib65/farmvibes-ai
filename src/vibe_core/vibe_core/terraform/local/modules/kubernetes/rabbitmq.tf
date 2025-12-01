@@ -9,9 +9,15 @@ resource "helm_release" "rabbitmq" {
   namespace  = var.namespace
 
   set = [
+    { name  = "global.security.allowInsecureImages"
+      value = "true" 
+    },
+    { name  = "image.repository"
+      value = "bitnamilegacy/rabbitmq"
+    },
     {
       name  = "image.tag"
-      value = var.rabbitmq_image_tag
+      value = "4.1.3-debian-12-r1"
     },
     {
       name  = "containerPorts.amqp"
